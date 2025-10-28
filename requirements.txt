@@ -1,0 +1,18 @@
+# Django Framework
+Django==4.2.7
+djangorestframework==3.14.0
+
+# PostgreSQL Database
+psycopg2-binary==2.9.9
+
+# Authentication & JWT
+djangorestframework-simplejwt==5.3.0
+
+# CORS Headers
+django-cors-headers==4.3.0
+
+# Environment Variables
+python-decouple==3.8
+
+# Password Validation
+django-password-validators==1.7.1
