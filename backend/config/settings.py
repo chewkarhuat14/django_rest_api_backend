@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'apps.users',
+    'apps.posts',
 ]
 
 MIDDLEWARE = [
@@ -102,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC+8'
 USE_I18N = True
 USE_TZ = True
 
