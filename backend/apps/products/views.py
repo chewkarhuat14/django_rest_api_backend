@@ -64,7 +64,20 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer.save(created_by=request.user)
         return Response(serializer.data, status=201)
 
-    @action(detail=False, methods=['get'])
+    def update(self, request, *args, **kwargs):
+        """
+        Override update to ensure only the author can update.
+        Validation happens automatically in is_valid() call.
+        """
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        self.check_object_permissions(request, instance)
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)  # All validations run here
+        serializer.save()
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def low_cost(self, request):
         """Get products with low cost"""
         cost = request.query_params.get('cost', 100)
@@ -72,4 +85,11 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(products, many=True)
         return Response(serializer.data)
 
-    
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthorOrReadOnly])
+    def update_cost(self, request, pk=None):
+        """Update the cost of a product"""
+        product = self.get_object()
+        serializer = self.get_serializer(product, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

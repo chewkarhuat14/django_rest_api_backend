@@ -6,7 +6,7 @@ from .models import Product
 class ProductAdmin(admin.ModelAdmin):
     """Admin interface for Product model."""
 
-    list_display = ['id', 'name', 'description', 'price', 'cost', 'stock', 'status', 'created_at', 'updated_at']
+    list_display = ['id', 'name', 'description', 'price', 'cost', 'stock', 'tax', 'status', 'created_at', 'updated_at']
     list_filter = ['status', 'created_at', 'updated_at']
     search_fields = ['name', 'description']
     readonly_fields = ['created_at', 'updated_at']
